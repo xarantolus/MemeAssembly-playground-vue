@@ -1,5 +1,5 @@
 <template>
-	<div id="terminal" ref="el"></div>
+	<div class="terminal" ref="el"></div>
 </template>
 
 <script setup lang="ts">
@@ -12,6 +12,7 @@ let el = ref<HTMLElement>();
 
 let term = new Terminal();
 let fitAddon = new FitAddon();
+
 term.loadAddon(fitAddon);
 
 let resizeHandler = () => {
@@ -62,9 +63,21 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-#terminal {
+.terminal {
 	text-align: left;
 	width: 100%;
 	height: 100%;
+}
+</style>
+
+<style>
+.terminal-container {
+	/* this is important */
+	overflow: hidden;
+}
+
+.xterm .xterm-viewport {
+	/* see : https://github.com/xtermjs/xterm.js/issues/3564#issuecomment-1004417440 */
+	width: initial !important;
 }
 </style>

@@ -9,9 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "monaco-editor": "^0.34.0",
     "vue": "^3.2.37",
     "xterm": "^5.0.0",
-    "xterm-addon-fit": "^0.6.0"
+    "xterm-addon-fit": "^0.6.0",
+    "ax": "file:dependencies/ax",
+    "assembly-script": "file:dependencies/assembly-script"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.1.0",
