@@ -20,6 +20,8 @@ let resizeHandler = () => {
 
 let termBuffer = new Uint8Array();
 
+let prompt = '$ ';
+
 onMounted(() => {
 	if (!el.value) return;
 
@@ -29,14 +31,20 @@ onMounted(() => {
 
 	// Terminal is now usable
 	term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ');
+
+	let normalize = (input: string) => input.replace("\n", "\n\r");
+
 	term.onKey((ev) => {
 		const printable = !ev.domEvent.altKey && !ev.domEvent.ctrlKey && !ev.domEvent.metaKey;
+
 		if (ev.domEvent.keyCode === 13) {
+			// Enter key
 			term.write('\r\n');
 			term.write('You entered: ' + termBuffer);
 			termBuffer = new Uint8Array();
-			term.write('\r\n$ ');
+			term.write('\r\n' + prompt);
 		} else if (ev.domEvent.keyCode === 8) {
+			// Backspace key
 			if (termBuffer.length > 0) {
 				termBuffer = termBuffer.slice(0, termBuffer.length - 1);
 				term.write('\b \b');
