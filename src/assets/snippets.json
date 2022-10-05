@@ -1,0 +1,362 @@
+{
+
+    "function": {
+        "scope": "memeasm",
+        "body": [
+            "I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun ${1:main}",
+            "    $0",
+            "",
+            "    I see this as an absolute win"
+        ],
+        "prefix": [
+            "I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun ...",
+            "main",
+            "function"
+        ],
+        "description": "Declares a function"
+    },
+    "call function": {
+        "scope": "memeasm",
+        "body": "${1:main}: whomst has summoned the almighty one\n",
+        "prefix": [
+            "... whomst has summoned the almighty one",
+            "call function"
+        ],
+        "description": "Call a function"
+    },
+    "syscall": {
+        "scope": "memeasm",
+        "body": "we need air support\n",
+        "prefix": [
+            "we need air support",
+            "syscall",
+            "SUScall"
+        ]
+    },
+    "nop": {
+        "scope": "memeasm",
+        "body": "oh no! anyway\n",
+        "prefix": [
+            "oh no! anyway",
+            "nop"
+        ]
+    },
+    "return": {
+        "scope": "memeasm",
+        "body": "right back at ya, buckaroo\n",
+        "prefix": [
+            "right back at ya, buckaroo",
+            "return from function"
+        ]
+    },
+    "monke loop": {
+        "scope": "memeasm",
+        "body": [
+            "monke ${1:uaaauaa}",
+            "\t",
+            "\t$0",
+            "\t",
+            "return to monke $1"
+        ],
+        "prefix": [
+            "monke loop"
+        ],
+        "description": "monke do loop"
+    },
+    "banana loop": {
+        "scope": "memeasm",
+        "body": [
+            "banana",
+            "\t",
+            "\t$0",
+            "\t",
+            "where banana"
+        ],
+        "prefix": [
+            "banana loop"
+        ],
+        "description": "banan"
+    },
+    "upgrade loop": {
+        "scope": "memeasm",
+        "body": [
+            "upgrade",
+            "\t",
+            "\t$0",
+            "\t",
+            "fuck go back"
+        ],
+        "prefix": [
+            "upgrade loop",
+            "fuck go back"
+        ]
+    },
+    "who would win": {
+        "scope": "memeasm",
+        "body": [
+            "who would win? ${1:eax} or ${2:ebx}",
+            "",
+            "What the hell happened here? $1 is equal to $2",
+            "$0",
+            "$1 wins",
+            "What the hell happened here? $1 > $2",
+            "",
+            "$2 wins",
+            "What the hell happened here? $1 < $2"
+        ],
+        "prefix": [
+            "who would win",
+            "Compare registers",
+            "if",
+            "condition"
+        ],
+        "description": "Compares two registers or values and jumps to appropriate point in code"
+    },
+    "equality check": {
+        "scope": "memeasm",
+        "body": [
+            "corporate needs you to find the difference between ${1:rax} and ${2:69}",
+            "",
+            "$0",
+            "",
+            "they're the same picture"
+        ],
+        "prefix": [
+            "corporate needs you to find the difference between ...",
+            "same picture",
+            "equality check"
+        ]
+    },
+    "return 1": {
+        "scope": "memeasm",
+        "body": "no, I don't think I will\n",
+        "prefix": [
+            "no, I don't think I will",
+            "return 1",
+            "exit with failure"
+        ]
+    },
+    "return 0": {
+        "scope": "memeasm",
+        "body": "I see this as an absolute win\n",
+        "prefix": [
+            "I see this as an absolute win",
+            "return 0",
+            "exit successfully"
+        ]
+    },
+    "push": {
+        "scope": "memeasm",
+        "body": "stonks ${1:rax}\n",
+        "prefix": [
+            "stonks",
+            "push to stack"
+        ]
+    },
+    "pop": {
+        "scope": "memeasm",
+        "body": "not stonks ${1:rax}\n",
+        "prefix": [
+            "not stonks",
+            "pop from stack"
+        ]
+    },
+    "logical and": {
+        "scope": "memeasm",
+        "body": "bitconneeeeeeect ${1:rax} ${2:15}\n",
+        "prefix": [
+            "bitconneeeeeeect",
+            "and"
+        ],
+        "description": "ANDs the first register with the second value/register"
+    },
+    "logical not": {
+        "scope": "memeasm",
+        "body": "${1:rax} \\s\n",
+        "prefix": [
+            "not",
+            "\\s"
+        ]
+    },
+    "zero register": {
+        "scope": "memeasm",
+        "body": "sneak 100 ${1:rax}\n",
+        "prefix": [
+            "sneak 100",
+            "zero/clear register",
+            "xor"
+        ]
+    },
+    "mov value to register": {
+        "scope": "memeasm",
+        "body": "${1:rax} is brilliant, but I like ${2:69420}\n",
+        "prefix": [
+            "... is brilliant, but I like ...",
+            "mov",
+            "set register"
+        ]
+    },
+    "calculate power": {
+        "scope": "memeasm",
+        "body": "${1:rbx} UNLIMITED POWER ${2:69}\n",
+        "prefix": [
+            "... UNLIMITED POWER ...",
+            "power",
+            "x to the power of y"
+        ]
+    },
+    "increment": {
+        "scope": "memeasm",
+        "body": "upvote ${1:rax}\n",
+        "prefix": [
+            "upvote",
+            "increment"
+        ]
+    },
+    "decrement": {
+        "scope": "memeasm",
+        "body": "downvote ${1:rax}\n",
+        "prefix": [
+            "downvote",
+            "decrement"
+        ]
+    },
+    "subtraction": {
+        "scope": "memeasm",
+        "body": "parry ${1:69} you filthy casual ${2:rax}\n",
+        "prefix": [
+            "parry ... you filthy casual ...",
+            "subtract",
+            "minus"
+        ]
+    },
+    "shift-right": {
+        "scope": "memeasm",
+        "body": "they had us in the first half, not gonna lie ${1:rax}\n",
+        "prefix": [
+            "they had us in the first half, not gonna lie",
+            "divide by 2",
+            "bit shift right"
+        ]
+    },
+    "shift-left": {
+        "scope": "memeasm",
+        "body": "upgrades, people. Upgrades ${1:rax}\n",
+        "prefix": [
+            "upgrades, people. Upgrades ...",
+            "multiply by 2",
+            "bit shift left"
+        ]
+    },
+    "addition": {
+        "scope": "memeasm",
+        "body": "${1:rax} units are ready, with ${2:42} more well on the way\n",
+        "prefix": [
+            "... units are ready, with ... units well on the way",
+            "add",
+            "plus"
+        ]
+    },
+    "multiplication": {
+        "scope": "memeasm",
+        "body": "${1:rax} is getting out of hand, now there are ${2:69} of them\n",
+        "prefix": [
+            "... is getting out of hand, now there are x of them",
+            "multiply"
+        ]
+    },
+    "division": {
+        "scope": "memeasm",
+        "body": "look at what ${1:10} needs to mimic a fraction of ${2:rax}\n",
+        "description": "Divide the second parameter register by the first value",
+        "prefix": [
+            "look at what ... needs to mimic a fraction of ...",
+            "division"
+        ]
+    },
+    "print": {
+        "scope": "memeasm",
+        "body": "what can I say except ${1:al}\n",
+        "prefix": [
+            "what can I say except ...",
+            "print character to stdout"
+        ]
+    },
+    "read": {
+        "scope": "memeasm",
+        "body": "let me in. LET ME IIIIIIIIN ${1:al}\n",
+        "prefix": [
+            "let me in. LET ME IIIIIIIIN",
+            "read character from stdin"
+        ]
+    },
+    "fancy exit": {
+        "scope": "memeasm",
+        "body": "guess I'll die\n",
+        "prefix": [
+            "guess I'll die",
+            "segfault",
+            "violent exit"
+        ]
+    },
+    "random jump": {
+        "scope": "memeasm",
+        "body": "confused stonks\n",
+        "prefix": [
+            "confused stonks",
+            "jump to random line"
+        ]
+    },
+    "delete code": {
+        "scope": "memeasm",
+        "body": "perfectly balanced as all things should be\n",
+        "prefix": [
+            "perfectly balanced as all things should be",
+            "delete code"
+        ]
+    },
+    "violate abi": {
+        "scope": "memeasm",
+        "body": "wait, that's illegal\n",
+        "prefix": [
+            "wait, that's illegal",
+            "violate ABI"
+        ]
+    },
+    "debug trap": {
+        "scope": "memeasm",
+        "body": "it's a trap\n",
+        "prefix": [
+            "it's a trap",
+            "debug trap / exit"
+        ]
+    },
+    "draw 25": {
+        "scope": "memeasm",
+        "body": "or draw 25",
+        "prefix": [
+            "or draw 25",
+            "add 25"
+        ]
+    },
+    "do you know de wey": {
+        "scope": "memeasm",
+        "body": "do you know de wey",
+        "prefix": [
+            "do you know de wey",
+            "dereference pointer"
+        ],
+        "description": "Dereferences the register written before it"
+    },
+    "comment": {
+        "scope": "memeasm",
+        "body": [
+            "What the hell happened here? $0"
+        ],
+        "prefix": [
+            "What the hell happened here?",
+            "Comment",
+            "//"
+        ]
+    }
+}
