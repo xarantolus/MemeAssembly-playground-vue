@@ -11,29 +11,55 @@ import Terminal from '../components/Terminal.vue';
 import { configuration, createSnippets } from '../assets/memeasm';
 
 const defaultText = `I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
-	rax is brilliant, but I like a
 
-	What the hell happened here? Print each character
-	upgrade
+    sneak 100 rbx
 
-		who would win? rax or z
+    What the hell happened here? rcx counts how many characters have been read
+    sneak 100 rcx
 
-		What the hell happened here? rax is equal to z
+    upgrade
 
-		z wins
-		What the hell happened here? rax < z
+        What the hell happened here? Read one character from stdin
+        let me in. LET ME IIIIIIIIN bl
 
-		what can I say except al
-		upvote rax
+        What the hell happened here? Check if it's the end of a line
+        corporate needs you to find the difference between bl and \\n
 
-	fuck go back
+        What the hell happened here? If not, we just push it to the stack (very efficient lol)
+        stonks rbx
+        upvote rcx
 
-	rax wins
-	What the hell happened here? rax > z
+    fuck go back
 
-	what can I say except \\n
+    they're the same picture
 
-	I see this as an absolute win
+
+    What the hell happened here? Now write what we've seen
+    banana
+
+        What the hell happened here? Check if we have reached the end of the input
+        who would win? rcx or 0
+
+        0 wins
+            What the hell happened here? rcx is <= 0, jump to end of program
+            return to monke uaaaaaua
+
+        rcx wins
+            What the hell happened here? rcx > 0, get the character and print it to stdout
+
+            not stonks rbx
+            what can I say except bl
+
+            downvote rcx
+
+    where banana
+
+    monke uaaaaaua
+
+    what can I say except \\n
+
+    I see this as an absolute win
+
 `
 
 export default defineComponent({
@@ -134,5 +160,9 @@ export default defineComponent({
 	font-size: 1em;
 	font-weight: bold;
 	cursor: pointer;
+}
+.run-button:disabled {
+	background-color: #999;
+	cursor: not-allowed;
 }
 </style>
