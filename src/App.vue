@@ -1,15 +1,29 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+<script lang="ts">
 import Terminal from './components/Terminal.vue';
 import Editor from './components/Editor.vue';
+import { defineComponent, ref } from 'vue'
+
+export default defineComponent({
+  name: 'App',
+  components: {
+    Terminal,
+    Editor
+  },
+  setup() {
+    const terminal = ref<InstanceType<typeof Terminal> | null>(null);
+    return {
+      terminal
+    }
+  },
+  methods: {
+  }
+})
 </script>
 
 <template>
   <div class="fullwindow grid-layout">
     <Editor class="grid-editor" />
-    <Terminal class="grid-terminal" />
+    <Terminal ref="terminal" class="grid-terminal" />
   </div>
 </template>
 

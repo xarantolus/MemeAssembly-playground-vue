@@ -2,64 +2,77 @@
 	<div class="terminal" ref="el"></div>
 </template>
 
-<script setup lang="ts">
-import { onMounted, onUnmounted, ref, Ref, VNodeRef } from 'vue';
+<script lang="ts">
+import { defineComponent, onMounted, onUnmounted, ref, Ref, VNodeRef } from 'vue';
 import { Terminal } from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
 import 'xterm/css/xterm.css';
 
-let el = ref<HTMLElement>();
+export default defineComponent({
+	name: 'Terminal',
+	setup(props, context) {
+		// Setup xterm with automatic resize
+		const el: Ref<HTMLElement | null> = ref(null);
+		const term: Terminal = new Terminal();
+		const fitAddon: FitAddon = new FitAddon();
+		term.loadAddon(fitAddon);
 
-let term = new Terminal();
-let fitAddon = new FitAddon();
+		let resizeHandler = () => {
+			fitAddon.fit();
+		};
 
-term.loadAddon(fitAddon);
+		let termBuffer = new Uint8Array();
 
-let resizeHandler = () => {
-	fitAddon.fit();
-};
+		let prompt = '$ ';
 
-let termBuffer = new Uint8Array();
+		onMounted(() => {
+			if (!el.value) return;
 
-let prompt = '$ ';
+			term.open(el.value);
+			window.addEventListener('resize', resizeHandler);
+			resizeHandler();
 
-onMounted(() => {
-	if (!el.value) return;
+			// Terminal is now usable
+			term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ');
 
-	term.open(el.value);
-	window.addEventListener('resize', resizeHandler);
-	resizeHandler();
+			term.onKey((ev) => {
+				const printable = !ev.domEvent.altKey && !ev.domEvent.ctrlKey && !ev.domEvent.metaKey;
 
-	// Terminal is now usable
-	term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ');
+				if (ev.domEvent.keyCode === 13) {
+					// Enter key
+					term.write('\r\n');
+					term.write('You entered: ' + termBuffer);
+					termBuffer = new Uint8Array();
+					term.write('\r\n' + prompt);
+				} else if (ev.domEvent.keyCode === 8) {
+					// Backspace key
+					if (termBuffer.length > 0) {
+						termBuffer = termBuffer.slice(0, termBuffer.length - 1);
+						term.write('\b \b');
+					}
+				} else if (printable) {
+					termBuffer = new Uint8Array([...termBuffer, ev.key.charCodeAt(0)]);
+					term.write(ev.key);
+				}
+			});
+		});
 
-	let normalize = (input: string) => input.replace("\n", "\n\r");
+		context.expose({
+			term,
+		});
 
-	term.onKey((ev) => {
-		const printable = !ev.domEvent.altKey && !ev.domEvent.ctrlKey && !ev.domEvent.metaKey;
+		onUnmounted(() => {
+			window.removeEventListener('resize', resizeHandler);
+			term.dispose();
+		});
 
-		if (ev.domEvent.keyCode === 13) {
-			// Enter key
-			term.write('\r\n');
-			term.write('You entered: ' + termBuffer);
-			termBuffer = new Uint8Array();
-			term.write('\r\n' + prompt);
-		} else if (ev.domEvent.keyCode === 8) {
-			// Backspace key
-			if (termBuffer.length > 0) {
-				termBuffer = termBuffer.slice(0, termBuffer.length - 1);
-				term.write('\b \b');
-			}
-		} else if (printable) {
-			termBuffer = new Uint8Array([...termBuffer, ev.key.charCodeAt(0)]);
-			term.write(ev.key);
-		}
-	});
-});
+		return {
+			el,
+			term,
+		};
+	},
+})
 
-onUnmounted(() => {
-	window.removeEventListener('resize', resizeHandler);
-});
 </script>
 
 <style scoped>
