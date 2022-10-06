@@ -10,9 +10,11 @@ export default defineComponent({
     Editor
   },
   setup() {
-    const terminal = ref<InstanceType<typeof Terminal> | null>(null);
+    const terminalRef = ref<InstanceType<typeof Terminal>>();
+    const editorRef = ref<InstanceType<typeof Editor>>();
     return {
-      terminal
+      terminalRef,
+      editorRef
     }
   },
   methods: {
@@ -22,7 +24,7 @@ export default defineComponent({
 
 <template>
   <div class="fullwindow grid-layout">
-    <Editor class="grid-editor" />
+    <Editor ref="editor" class="grid-editor" />
     <Terminal ref="terminal" class="grid-terminal" />
   </div>
 </template>

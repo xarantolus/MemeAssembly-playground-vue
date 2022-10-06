@@ -1,5 +1,5 @@
 <template>
-	<div class="terminal" ref="el"></div>
+	<div class="terminal" ref="terminalHTMLElement"></div>
 </template>
 
 <script lang="ts">
@@ -12,7 +12,7 @@ export default defineComponent({
 	name: 'Terminal',
 	setup(props, context) {
 		// Setup xterm with automatic resize
-		const el: Ref<HTMLElement | null> = ref(null);
+		const terminalHTMLElement: Ref<HTMLElement | null> = ref(null);
 		const term: Terminal = new Terminal();
 		const fitAddon: FitAddon = new FitAddon();
 		term.loadAddon(fitAddon);
@@ -26,9 +26,9 @@ export default defineComponent({
 		let prompt = '$ ';
 
 		onMounted(() => {
-			if (!el.value) return;
+			if (!terminalHTMLElement.value) throw new Error("Terminal HTML element not found");
 
-			term.open(el.value);
+			term.open(terminalHTMLElement.value);
 			window.addEventListener('resize', resizeHandler);
 			resizeHandler();
 
@@ -67,7 +67,7 @@ export default defineComponent({
 		});
 
 		return {
-			el,
+			terminalHTMLElement,
 			term,
 		};
 	},
