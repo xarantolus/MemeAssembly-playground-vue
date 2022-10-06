@@ -32,9 +32,6 @@ export default defineComponent({
 			window.addEventListener('resize', resizeHandler);
 			resizeHandler();
 
-			// Terminal is now usable
-			term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ');
-
 			term.onKey((ev) => {
 				const printable = !ev.domEvent.altKey && !ev.domEvent.ctrlKey && !ev.domEvent.metaKey;
 

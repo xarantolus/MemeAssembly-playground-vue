@@ -5,7 +5,9 @@
 <script lang="ts">
 import * as monaco from 'monaco-editor'
 import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
-import { ref, onMounted, defineComponent } from 'vue'
+import { ref, onMounted, defineComponent, PropType, Ref } from 'vue'
+import { Terminal as XTerm } from 'xterm';
+import Terminal from '../components/Terminal.vue';
 import { configuration, createSnippets } from '../assets/memeasm';
 
 const defaultText = `I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
@@ -36,6 +38,16 @@ const defaultText = `I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun,
 
 export default defineComponent({
 	name: 'Editor',
+	props: {
+		text: {
+			type: String,
+			default: defaultText
+		},
+		runFunction: {
+			type: Function as PropType<(text: string) => Promise<void>>,
+			required: true
+		}
+	},
 	setup(props, context) {
 		monaco.languages.register({ id: 'memeasm', extensions: ['.memeasm'], aliases: ['memeasm', 'Memeasm', "MemeAssembly"] });
 		monaco.languages.setLanguageConfiguration('memeasm', configuration)
@@ -53,26 +65,37 @@ export default defineComponent({
 			if (!editorHTMLElement.value) throw new Error("Editor HTML element not found")
 
 			monaco_editor = monaco.editor.create(editorHTMLElement.value, {
-				value: defaultText,
+				value: props.text,
 				language: 'memeasm',
 				theme: 'vs-dark',
 				automaticLayout: true,
 				contextmenu: true,
 			});
 
-			let runMemeAsmFile = () => {
-				alert("Not implemented yet");
-			}
-
 			// Add bottom navigation bar as widget
 			monaco_editor.addOverlayWidget({
 				getId() { return "bottom-navigation" },
-				getDomNode() {
+				getDomNode: () => {
 					// Create a run button
 					let node = document.createElement("button");
 					node.innerText = "Run"
 					node.className = "run-button";
-					node.onclick = runMemeAsmFile;
+					node.onclick = async () => {
+						if (!monaco_editor) return;
+
+						node.disabled = true;
+
+						try {
+							await props.runFunction(monaco_editor!.getValue({
+								lineEnding: "\n",
+								preserveBOM: false,
+							}));
+						} catch (e) {
+							console.error("Editor: Running \"Run\" function:", e);
+						} finally {
+							node.disabled = false;
+						}
+					};
 					return node;
 				},
 				getPosition() {
