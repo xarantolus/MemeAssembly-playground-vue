@@ -88,58 +88,65 @@ export default defineComponent({
 		let translationFunction = await MemeAsmWrapper();
 
 		const runFunction = async (text: string) => {
-			// Reset colors & clear terminal
-			terminalRef.value?.term.reset();
-			terminalRef.value?.term.clear();
-			terminalRef.value?.term.focus();
-
-
 			let writeln = (line: string) => {
 				terminalRef.value?.term.writeln(line);
 			};
+			try {
+				// Reset colors & clear terminal
+				terminalRef.value?.term.reset();
+				terminalRef.value?.term.clear();
+				terminalRef.value?.term.focus();
 
-			const x86Assembly = await translationFunction(text, writeln);
 
-			let code_start_addr = 0x1000n;
-			let data_start_addr = 0x2000n;
+				const x86Assembly = await translationFunction(text, writeln);
 
-			let assembled: {
-				code: Array<number>,
-				code_start_address: number,
-				data_section: Array<{
-					label: string,
-					offset: number,
-					size: number,
-				}>,
-				data_section_size: number,
-				data_start_address: number,
-				entrypoint_address: number,
-			} = await assemble(x86Assembly, code_start_addr, data_start_addr, "main");
-			writeln("Successfully assembled to machine code.");
+				let code_start_addr = 0x2000n;
+				let data_start_addr = 0x1000n;
 
-			let ax = new Axecutor(
-				new Uint8Array(assembled.code),
-				BigInt(assembled.code_start_address),
-				BigInt(assembled.entrypoint_address),
-			);
-			ax.init_stack(8n * 1024n);
+				let assembled: {
+					code: Array<number>,
+					code_start_address: number,
+					data_section: Array<{
+						label: string,
+						offset: number,
+						size: number,
+					}>,
+					data_section_size: number,
+					data_start_address: number,
+					entrypoint_address: number,
+				} = await assemble(x86Assembly, code_start_addr, data_start_addr, "main");
+				writeln("Successfully assembled to machine code.");
 
-			let initial_rsp = ax.reg_read_64(Register.RSP);
-			ax.hook_after_mnemonic(Mnemonic.Ret, (ax: Axecutor) => {
-				let rsp = ax.reg_read_64(Register.RSP);
-				if (rsp > initial_rsp) {
-					console.log("Reached end of stack")
-					return ax.stop();
-				}
+				let ax = new Axecutor(
+					new Uint8Array(assembled.code),
+					BigInt(assembled.code_start_address),
+					BigInt(assembled.entrypoint_address),
+				);
+				ax.mem_init_zero(BigInt(assembled.data_start_address), BigInt(assembled.data_section_size));
+				ax.init_stack(8n * 1024n);
 
-				return null;
-			});
+				console.log(ax.toString());
 
-			ax.hook_before_mnemonic(Mnemonic.Syscall, createSyscallHandler(terminalRef.value?.term!));
+				let initial_rsp = ax.reg_read_64(Register.RSP);
+				ax.hook_after_mnemonic(Mnemonic.Ret, (ax: Axecutor) => {
+					let rsp = ax.reg_read_64(Register.RSP);
+					if (rsp > initial_rsp) {
+						console.log("Reached end of stack")
+						return ax.stop();
+					}
 
-			await ax.execute();
+					return null;
+				});
 
-			writeln(`Program exited with exit code ${ax.reg_read_64(Register.RAX)}.`);
+				ax.hook_before_mnemonic(Mnemonic.Syscall, createSyscallHandler(terminalRef.value?.term!));
+
+				await ax.execute();
+
+				writeln(`Program exited with exit code ${ax.reg_read_64(Register.RAX)}.`);
+			} catch (e) {
+				console.error(e);
+				writeln(`Error: ${e}`);
+			}
 		};
 
 		return {
@@ -149,7 +156,7 @@ export default defineComponent({
 		}
 	},
 	mounted() {
-		this.terminalRef?.term.writeln("Welcome to the MemeAssembly Playground 👋");
+		this.terminalRef?.term.writeln("Welcome to the MemeAssembly Playground \ud83d\udc4b");
 	}
 })
 </script>

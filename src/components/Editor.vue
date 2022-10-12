@@ -10,64 +10,13 @@ import { Terminal as XTerm } from 'xterm';
 import Terminal from '../components/Terminal.vue';
 import { configuration, createSnippets } from '../assets/memeasm';
 
-const defaultText = `I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
-
-    sneak 100 rbx
-
-    What the hell happened here? rcx counts how many characters have been read
-    sneak 100 rcx
-
-    upgrade
-
-        What the hell happened here? Read one character from stdin
-        let me in. LET ME IIIIIIIIN bl
-
-        What the hell happened here? Check if it's the end of a line
-        corporate needs you to find the difference between bl and \\n
-
-        What the hell happened here? If not, we just push it to the stack (very efficient lol)
-        stonks rbx
-        upvote rcx
-
-    fuck go back
-
-    they're the same picture
-
-
-    What the hell happened here? Now write what we've seen
-    banana
-
-        What the hell happened here? Check if we have reached the end of the input
-        who would win? rcx or 0
-
-        0 wins
-            What the hell happened here? rcx is <= 0, jump to end of program
-            return to monke uaaaaaua
-
-        rcx wins
-            What the hell happened here? rcx > 0, get the character and print it to stdout
-
-            not stonks rbx
-            what can I say except bl
-
-            downvote rcx
-
-    where banana
-
-    monke uaaaaaua
-
-    what can I say except \\n
-
-    I see this as an absolute win
-
-`
+import * as example from '../example-programs';
 
 export default defineComponent({
 	name: 'Editor',
 	props: {
 		text: {
 			type: String,
-			default: defaultText
 		},
 		runFunction: {
 			type: Function as PropType<(text: string) => Promise<void>>,
@@ -91,12 +40,16 @@ export default defineComponent({
 			if (!editorHTMLElement.value) throw new Error("Editor HTML element not found")
 
 			monaco_editor = monaco.editor.create(editorHTMLElement.value, {
-				value: props.text,
+				value: props.text ?? localStorage.getItem("editor_text_content") ?? example.alphabetProgram,
 				language: 'memeasm',
 				theme: 'vs-dark',
 				automaticLayout: true,
 				contextmenu: true,
 			});
+
+			monaco_editor.onDidChangeModelContent((e) => {
+				localStorage.setItem("editor_text_content", monaco_editor!.getValue())
+			})
 
 			// Add bottom navigation bar as widget
 			monaco_editor.addOverlayWidget({
@@ -105,7 +58,7 @@ export default defineComponent({
 					// Create a run button
 					let node = document.createElement("button");
 					node.innerText = "Run"
-					node.className = "run-button";
+					node.className = "button run-button";
 					node.onclick = async () => {
 						if (!monaco_editor) return;
 
@@ -130,6 +83,54 @@ export default defineComponent({
 					}
 				}
 			});
+
+			// Add a dropdown to select an example program
+			monaco_editor.addOverlayWidget({
+				getId() { return "select-example" },
+				getDomNode: () => {
+					// Create a selection to set the text to the value of alphabetProgram,					reverseStringProgram,						or toBinaryProgram						toHexProgram
+					let node = document.createElement("select");
+					node.className = "select-example";
+
+					let none = document.createElement("option");
+					none.innerText = "Select an example program";
+					none.value = "";
+					node.appendChild(none);
+
+
+					let alphabetProgramOption = document.createElement("option");
+					alphabetProgramOption.value = example.alphabetProgram;
+					alphabetProgramOption.innerText = "Alphabet Program";
+					node.appendChild(alphabetProgramOption);
+
+					let reverseStringProgramOption = document.createElement("option");
+					reverseStringProgramOption.value = example.reverseStringProgram;
+					reverseStringProgramOption.innerText = "Reverse String Program";
+					node.appendChild(reverseStringProgramOption);
+
+					let toBinaryProgramOption = document.createElement("option");
+					toBinaryProgramOption.value = example.toBinaryProgram;
+					toBinaryProgramOption.innerText = "To Binary Program";
+					node.appendChild(toBinaryProgramOption);
+
+					let toHexProgramOption = document.createElement("option");
+					toHexProgramOption.value = example.toHexProgram;
+					toHexProgramOption.innerText = "To Hex Program";
+					node.appendChild(toHexProgramOption);
+
+					node.onchange = () => {
+						if (!monaco_editor || !node.value) return;
+						monaco_editor.setValue(node.value);
+					}
+
+					return node;
+				},
+				getPosition() {
+					return {
+						preference: monaco.editor.OverlayWidgetPositionPreference.BOTTOM_RIGHT_CORNER
+					}
+				}
+			});
 		})
 
 		return {
@@ -150,18 +151,27 @@ export default defineComponent({
 </style>
 
 <style>
-.run-button {
+.button {
 	margin: 1em;
 	padding: 0.5em 1em;
 	border: none;
 	border-radius: 0.5em;
-	background-color: #007acc;
 	color: white;
 	font-size: 1em;
 	font-weight: bold;
 	cursor: pointer;
+	min-width: 10%;
 }
-.run-button:disabled {
+
+.run-button {
+	background-color: #007acc;
+}
+
+.reset-text-button {
+	background-color: #944242;
+}
+
+.button:disabled {
 	background-color: #999;
 	cursor: not-allowed;
 }
