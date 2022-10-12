@@ -24,6 +24,12 @@ jobs:
 
     - uses: actions/checkout@v2
 
+    #
+    - name: Set Git User info
+      run: |
+          git config --global user.email "some_name@example.com"
+          git config --global user.name "A Name"
+
     - name: Run setup script
       run: bash ./setup.sh
 
