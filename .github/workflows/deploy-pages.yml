@@ -37,7 +37,9 @@ jobs:
       run: bash ./setup.sh
 
     - name: Run build
-      run: npm run build
+      run: |
+        npm run build
+        cp CNAME dist
 
     - name: Deploy to GH Pages
       uses: JamesIves/github-pages-deploy-action@v4
