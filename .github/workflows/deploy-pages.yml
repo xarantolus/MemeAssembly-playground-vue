@@ -1,4 +1,4 @@
-name: Build Vue WebApp
+name: Build & Deploy Vue WebApp
 
 on:
   push:
@@ -6,10 +6,13 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build_vue:
     runs-on: ubuntu-latest
-    name: Build Vue
+    name: Build & Deploy to GH Pages
     steps:
 
     - name: Install Rust
@@ -22,7 +25,8 @@ jobs:
     - name: Install wasm-pack
       run:  curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
-    - uses: actions/checkout@v2
+    - name: Check out repository
+      uses: actions/checkout@v2
 
     - name: Set Git User info
       run: |
@@ -32,10 +36,10 @@ jobs:
     - name: Run setup script
       run: bash ./setup.sh
 
-    - id: Build-Vue
-      uses: xRealNeon/VuePagesAction@1.0.1
+    - name: Run build
+      run: npm run build
+
+    - name: Deploy to GH Pages
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
-        cname: 'memeasm.010.one'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        username: 'xarantolus'
-        reponame: 'MemeAssembly-playground'
+        folder: dist
