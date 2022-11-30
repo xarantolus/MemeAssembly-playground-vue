@@ -46,10 +46,11 @@ source ./emsdk_env.sh
 
 
 cd "$TMP_DIR"
-git clone "https://github.com/kammt/MemeAssembly.git"
+git clone "https://github.com/xarantolus/MemeAssembly.git"
 
 cd MemeAssembly
-git am $BASE_DIR/patches/*.patch
+
+git checkout wasm
 
 mkdir -p wasm
 

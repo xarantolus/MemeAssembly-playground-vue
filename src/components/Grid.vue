@@ -22,15 +22,7 @@ export default defineComponent({
 		await initEmulator();
 
 		let createSyscallHandler = (term: XTerm) => {
-			let dedup = true;
 			return async function (ax: Axecutor) {
-				if (dedup) {
-					console.log("deduplicating")
-					dedup = false;
-					return null;
-				}
-				dedup = true;
-
 				console.log(`Syscall ${ax.reg_read_64(Register.RIP)}`);
 				let syscall_num = ax.reg_read_64(Register.RAX);
 
