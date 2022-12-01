@@ -2,7 +2,7 @@ import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
 
 let configuration: monaco.languages.LanguageConfiguration = {
 	"comments": {
-		lineComment: "//",
+		lineComment: "What the hell happened here?",
 	},
 	// symbols used as brackets
 	"brackets": [],

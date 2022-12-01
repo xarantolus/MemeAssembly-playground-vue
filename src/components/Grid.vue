@@ -94,7 +94,6 @@ export default defineComponent({
 
 				let code_start_addr = 0x2000n;
 				let data_start_addr = 0x1000n;
-
 				let assembled: {
 					code: Array<number>,
 					code_start_address: number,
@@ -106,7 +105,16 @@ export default defineComponent({
 					data_section_size: number,
 					data_start_address: number,
 					entrypoint_address: number,
-				} = await assemble(x86Assembly, code_start_addr, data_start_addr, "main");
+				};
+
+				try {
+					assembled = await assemble(x86Assembly, code_start_addr, data_start_addr, "main");
+				} catch (e) {
+					console.error(e);
+					writeln('Error while assembling generated assembly: ' + e);
+					return;
+				}
+
 				writeln("Successfully assembled to machine code.");
 
 				let ax = new Axecutor(
@@ -127,7 +135,7 @@ export default defineComponent({
 						return ax.stop();
 					}
 
-					return null;
+					return ax.unchanged();
 				});
 
 				ax.hook_before_mnemonic(Mnemonic.Syscall, createSyscallHandler(terminalRef.value?.term!));

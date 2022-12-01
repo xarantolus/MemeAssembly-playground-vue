@@ -24,8 +24,13 @@ export default defineComponent({
 		}
 	},
 	setup(props, context) {
-		monaco.languages.register({ id: 'memeasm', extensions: ['.memeasm'], aliases: ['memeasm', 'Memeasm', "MemeAssembly"] });
+		monaco.languages.register({
+			id: 'memeasm',
+			extensions: ['.memeasm'],
+			aliases: ['memeasm', 'Memeasm', "MemeAssembly"],
+		});
 		monaco.languages.setLanguageConfiguration('memeasm', configuration)
+
 
 		const editorHTMLElement = ref<HTMLElement | null>()
 		self.MonacoEnvironment = {
