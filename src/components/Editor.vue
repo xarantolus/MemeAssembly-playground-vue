@@ -87,6 +87,7 @@ export default defineComponent({
 								preserveBOM: false,
 							}));
 						} catch (e) {
+							props.consoleTextFunction("Error: " + e);
 							console.error("Editor: Running \"Run\" function:", e);
 						} finally {
 							runButton.disabled = false;
