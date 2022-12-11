@@ -79,16 +79,18 @@ export default defineComponent({
 
 		let translationFunction = await MemeAsmWrapper();
 
-		const runFunction = async (text: string) => {
-			let writeln = (line: string) => {
-				terminalRef.value?.term.writeln(line);
-			};
-			try {
-				// Reset colors & clear terminal
-				terminalRef.value?.term.reset();
-				terminalRef.value?.term.clear();
-				terminalRef.value?.term.focus();
+		const writeln = (line: string) => {
+			terminalRef.value?.term.writeln(line);
+		};
+		const reset = () => {
+			terminalRef.value?.term.reset();
+			terminalRef.value?.term.clear();
+			terminalRef.value?.term.focus();
+		};
 
+		const runFunction = async (text: string) => {
+			try {
+				reset();
 
 				const x86Assembly = await translationFunction(text, writeln);
 
@@ -153,7 +155,9 @@ export default defineComponent({
 			terminalRef,
 			editorRef,
 			runFunction,
-			translationFunction
+			translationFunction,
+			consoleTextFunction: writeln,
+			consoleReset: reset,
 		}
 	},
 	mounted() {
@@ -164,7 +168,7 @@ export default defineComponent({
 
 <template>
 	<div class="fullwindow grid-layout">
-		<Editor ref="editorRef" class="grid-editor" :run-function="runFunction" :translation-function="translationFunction" :terminal="(terminalRef as any)" />
+		<Editor ref="editorRef" class="grid-editor" :run-function="runFunction" :translation-function="translationFunction" :terminal="(terminalRef as any)" :console-text-function="consoleTextFunction" :console-reset-function="consoleReset" />
 		<Terminal ref="terminalRef" class="grid-terminal" />
 	</div>
 </template>

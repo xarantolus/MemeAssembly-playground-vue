@@ -22,6 +22,14 @@ export default defineComponent({
 			type: Function as PropType<(text: string) => Promise<void>>,
 			required: true
 		},
+		consoleTextFunction: {
+			type: Function as PropType<(text: string) => void>,
+			required: true
+		},
+		consoleResetFunction: {
+			type: Function as PropType<() => void>,
+			required: true
+		},
 		translationFunction: {
 			type: Function as PropType<(code: string, consoleOutput: (s: string) => void) => Promise<string>>,
 			required: true
@@ -60,19 +68,18 @@ export default defineComponent({
 				localStorage.setItem("editor_text_content", monaco_editor!.getValue())
 			})
 
-			// Add bottom navigation bar as widget
 			monaco_editor.addOverlayWidget({
 				getId() { return "bottom-navigation" },
 				getDomNode: () => {
 					// Create a run button
-					let node = document.createElement("button");
-					node.innerText = "Run"
-					node.className = "button run-button";
+					let runButton = document.createElement("button");
+					runButton.innerText = "Run"
+					runButton.className = "button run-button";
 
-					node.onclick = async () => {
+					runButton.onclick = async () => {
 						if (!monaco_editor) return;
 
-						node.disabled = true;
+						runButton.disabled = true;
 
 						try {
 							await props.runFunction(monaco_editor!.getValue({
@@ -82,47 +89,44 @@ export default defineComponent({
 						} catch (e) {
 							console.error("Editor: Running \"Run\" function:", e);
 						} finally {
-							node.disabled = false;
+							runButton.disabled = false;
 						}
 					};
-					return node;
-				},
-				getPosition() {
-					return {
-						preference: monaco.editor.OverlayWidgetPositionPreference.TOP_RIGHT_CORNER
-					}
-				}
-			});
 
-			// Add another button for displaying the translation
-			monaco_editor.addOverlayWidget({
-				getId() { return "bottom-navigation" },
-				getDomNode: () => {
-					// Create a run button
-					let node = document.createElement("button");
-					node.innerText = "Translate"
-					node.className = "button translate-button";
 
-					node.onclick = async () => {
+					let translationButton = document.createElement("button");
+					translationButton.innerText = "Translate"
+					translationButton.className = "button translate-button";
+
+					translationButton.onclick = async () => {
 						if (!monaco_editor) return;
 
-						node.disabled = true;
+						translationButton.disabled = true;
 
 						try {
+							props.consoleResetFunction();
+
 							let translation = await props.translationFunction(monaco_editor!.getValue({
 								lineEnding: "\n",
 								preserveBOM: false,
 							}), (s) => {
 								console.log(s);
 							});
-							alert(translation);
+
+							props.consoleTextFunction(translation);
 						} catch (e) {
 							console.error("Editor: Running \"Translate\" function:", e);
+							props.consoleTextFunction("Error: " + e);
 						} finally {
-							node.disabled = false;
+							translationButton.disabled = false;
 						}
 					};
-					return node;
+
+					let div = document.createElement("div");
+					div.appendChild(translationButton);
+					div.appendChild(runButton);
+
+					return div;
 				},
 				getPosition() {
 					return {
