@@ -21,7 +21,11 @@ export default defineComponent({
 		runFunction: {
 			type: Function as PropType<(text: string) => Promise<void>>,
 			required: true
-		}
+		},
+		translationFunction: {
+			type: Function as PropType<(code: string, consoleOutput: (s: string) => void) => Promise<string>>,
+			required: true
+		},
 	},
 	setup(props, context) {
 		monaco.languages.register({
@@ -64,6 +68,7 @@ export default defineComponent({
 					let node = document.createElement("button");
 					node.innerText = "Run"
 					node.className = "button run-button";
+
 					node.onclick = async () => {
 						if (!monaco_editor) return;
 
@@ -76,6 +81,43 @@ export default defineComponent({
 							}));
 						} catch (e) {
 							console.error("Editor: Running \"Run\" function:", e);
+						} finally {
+							node.disabled = false;
+						}
+					};
+					return node;
+				},
+				getPosition() {
+					return {
+						preference: monaco.editor.OverlayWidgetPositionPreference.TOP_RIGHT_CORNER
+					}
+				}
+			});
+
+			// Add another button for displaying the translation
+			monaco_editor.addOverlayWidget({
+				getId() { return "bottom-navigation" },
+				getDomNode: () => {
+					// Create a run button
+					let node = document.createElement("button");
+					node.innerText = "Translate"
+					node.className = "button translate-button";
+
+					node.onclick = async () => {
+						if (!monaco_editor) return;
+
+						node.disabled = true;
+
+						try {
+							let translation = await props.translationFunction(monaco_editor!.getValue({
+								lineEnding: "\n",
+								preserveBOM: false,
+							}), (s) => {
+								console.log(s);
+							});
+							alert(translation);
+						} catch (e) {
+							console.error("Editor: Running \"Translate\" function:", e);
 						} finally {
 							node.disabled = false;
 						}

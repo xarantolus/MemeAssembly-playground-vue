@@ -152,7 +152,8 @@ export default defineComponent({
 		return {
 			terminalRef,
 			editorRef,
-			runFunction
+			runFunction,
+			translationFunction
 		}
 	},
 	mounted() {
@@ -163,7 +164,7 @@ export default defineComponent({
 
 <template>
 	<div class="fullwindow grid-layout">
-		<Editor ref="editorRef" class="grid-editor" :run-function="runFunction" :terminal="(terminalRef as any)" />
+		<Editor ref="editorRef" class="grid-editor" :run-function="runFunction" :translation-function="translationFunction" :terminal="(terminalRef as any)" />
 		<Terminal ref="terminalRef" class="grid-terminal" />
 	</div>
 </template>
