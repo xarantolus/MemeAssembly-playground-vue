@@ -16,7 +16,7 @@ cp pkg/* "$BASE_DIR/dependencies/ax"
 
 # Build AssemblyScript assembler
 cd "$TMP_DIR"
-git clone "https://github.com/xarantolus/assembly-script.git" -b develop
+git clone "https://github.com/xarantolus/assembly-script.git"
 cd assembly-script
 make
 cp pkg/* "$BASE_DIR/dependencies/assembly-script"
