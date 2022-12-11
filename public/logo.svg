@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="210.00002mm"
+   viewBox="0 0 210 210.00002"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   sodipodi:docname="drawing.svg"
+   inkscape:export-filename="drawing.svg"
+   inkscape:export-xdpi="42.759998"
+   inkscape:export-ydpi="42.759998"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.226391"
+     inkscape:cx="251.9588"
+     inkscape:cy="74.20146"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#00ff00;stroke-width:0.411146"
+       id="rect140"
+       width="83.644356"
+       height="105.32416"
+       x="19.058151"
+       y="0.91531801" />
+    <rect
+       style="fill:#ff0000;stroke-width:0.411146"
+       id="rect246"
+       width="72.73423"
+       height="79.116737"
+       x="148.16139"
+       y="36.023361" />
+    <rect
+       style="fill:#00ffff;stroke-width:0.411146"
+       id="rect300"
+       width="105.91922"
+       height="144.38806"
+       x="81.336807"
+       y="31.07856" />
+    <rect
+       style="fill:#ff6600;stroke-width:0.411146"
+       id="rect354"
+       width="114.10181"
+       height="184.4409"
+       x="32.24123"
+       y="88.932671" />
+    <rect
+       style="fill:#0000ff;stroke-width:0.292699"
+       id="rect460"
+       width="85.917297"
+       height="91.973228"
+       x="-27.764503"
+       y="69.647995" />
+  </g>
+</svg>
