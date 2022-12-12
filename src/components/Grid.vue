@@ -162,6 +162,7 @@ export default defineComponent({
 	},
 	mounted() {
 		this.terminalRef?.term.writeln("Welcome to the MemeAssembly Playground \ud83d\udc4b");
+		this.terminalRef?.term.writeln("Select an example program from the dropdown at the bottom or start writing your own program in the editor!");
 	}
 })
 </script>

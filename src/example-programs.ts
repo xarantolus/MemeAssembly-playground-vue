@@ -1,5 +1,30 @@
 
 const reverseStringProgram = `I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
+	what can I say except E
+	what can I say except n
+	what can I say except t
+	what can I say except e
+	what can I say except r
+	what can I say except space
+	what can I say except a
+	what can I say except space
+	what can I say except t
+	what can I say except e
+	what can I say except x
+	what can I say except t
+	what can I say except space
+	what can I say except t
+	what can I say except o
+	what can I say except space
+	what can I say except r
+	what can I say except e
+	what can I say except v
+	what can I say except e
+	what can I say except r
+	what can I say except s
+	what can I say except e
+	what can I say except :
+	what can I say except \\n
 
     sneak 100 rbx
 
@@ -89,16 +114,15 @@ I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
     upvote edx
 
     monke uaaauaaa
-    who would win? ebx or edx
+        who would win? ebx or edx
 
-    ebx wins
-    eax is brilliant, but I like ebx
-    bitconneeeeeeect eax 1
+        ebx wins
+        eax is brilliant, but I like ebx
+        bitconneeeeeeect eax 1
 
-    upvote rcx
-    stonks rax
-    they had us in the first half, not gonna lie ebx
-
+        upvote rcx
+        stonks rax
+        they had us in the first half, not gonna lie ebx
     return to monke uaaauaaa
 
     edx wins
@@ -108,23 +132,23 @@ I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
 
 
     monke uaaauaaauaaauaaa
+        who would win? ecx or edi
 
-    who would win? ecx or edi
+        ecx wins
 
-    ecx wins
+        not stonks rax
 
-    not stonks rax
-
-    sneak 100 eax or draw 25
-    sneak 100 eax or draw 25
-    parry 2 you filthy casual eax
-    what can I say except al
-    downvote rcx
+        sneak 100 eax or draw 25
+        sneak 100 eax or draw 25
+        parry 2 you filthy casual eax
+        what can I say except al
+        downvote rcx
     return to monke uaaauaaauaaauaaa
 
     edi wins
 
     what can I say except \\n
+
     I see this as an absolute win
 `
 
@@ -142,19 +166,19 @@ I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
     upvote edx
 
     monke uaaauaaa
-    who would win? ebx or edx
+        who would win? ebx or edx
 
-    ebx wins
-    eax is brilliant, but I like ebx
-    bitconneeeeeeect eax 15
+        ebx wins
+        eax is brilliant, but I like ebx
+        bitconneeeeeeect eax 15
 
-    upvote rcx
-    stonks rax
+        upvote rcx
+        stonks rax
 
-    they had us in the first half, not gonna lie ebx
-    they had us in the first half, not gonna lie ebx
-    they had us in the first half, not gonna lie ebx
-    they had us in the first half, not gonna lie ebx
+        they had us in the first half, not gonna lie ebx
+        they had us in the first half, not gonna lie ebx
+        they had us in the first half, not gonna lie ebx
+        they had us in the first half, not gonna lie ebx
 
     return to monke uaaauaaa
 
@@ -166,36 +190,36 @@ I like to have fun, fun, fun, fun, fun, fun, fun, fun, fun, fun main
 
     monke uaaauaaauaaauaaa
 
-    who would win? ecx or edi
+        who would win? ecx or edi
 
-    ecx wins
+        ecx wins
 
-    r8 is brilliant, but I like 9
+        r8 is brilliant, but I like 9
 
-    not stonks rax
+        not stonks rax
 
-    who would win? r8 or rax
+        who would win? r8 or rax
 
-    r8 wins
+        r8 wins
 
-    sneak 100 eax or draw 25
-    sneak 100 eax or draw 25
-    parry 2 you filthy casual eax
-    what can I say except al
+        sneak 100 eax or draw 25
+        sneak 100 eax or draw 25
+        parry 2 you filthy casual eax
+        what can I say except al
 
-    downvote rcx
-    return to monke uaaauaaauaaauaaa
+        downvote rcx
+        return to monke uaaauaaauaaauaaa
 
-    rax wins
+        rax wins
 
-    sneak 100 eax or draw 25
-    sneak 100 eax or draw 25
-    sneak 100 eax or draw 25
-    sneak 100 eax or draw 25
-    parry 13 you filthy casual eax
-    what can I say except al
+        sneak 100 eax or draw 25
+        sneak 100 eax or draw 25
+        sneak 100 eax or draw 25
+        sneak 100 eax or draw 25
+        parry 13 you filthy casual eax
+        what can I say except al
 
-    downvote rcx
+        downvote rcx
     return to monke uaaauaaauaaauaaa
 
     edi wins

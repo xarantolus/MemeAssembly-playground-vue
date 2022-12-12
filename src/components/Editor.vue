@@ -57,7 +57,7 @@ export default defineComponent({
 			if (!editorHTMLElement.value) throw new Error("Editor HTML element not found")
 
 			monaco_editor = monaco.editor.create(editorHTMLElement.value, {
-				value: props.text ?? localStorage.getItem("editor_text_content") ?? example.alphabetProgram,
+				value: props.text ?? localStorage.getItem("editor_text_content") ?? example.reverseStringProgram,
 				language: 'memeasm',
 				theme: 'vs-dark',
 				automaticLayout: true,
@@ -140,7 +140,6 @@ export default defineComponent({
 			monaco_editor.addOverlayWidget({
 				getId() { return "select-example" },
 				getDomNode: () => {
-					// Create a selection to set the text to the value of alphabetProgram,					reverseStringProgram,						or toBinaryProgram						toHexProgram
 					let node = document.createElement("select");
 					node.className = "select-example";
 
