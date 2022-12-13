@@ -6,15 +6,26 @@ on:
 
   workflow_dispatch:
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 
 jobs:
   build_vue:
     runs-on: ubuntu-latest
     name: Build & Deploy to GH Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-
     - name: Install Rust
       uses: actions-rs/toolchain@v1
       with:
@@ -26,7 +37,7 @@ jobs:
       run:  curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
     - name: Check out repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set Git User info
       run: |
@@ -41,8 +52,14 @@ jobs:
         npm run build
         cp CNAME dist
 
-    - name: Deploy to GH Pages
-      uses: JamesIves/github-pages-deploy-action@v4
+    - name: Setup Pages
+      uses: actions/configure-pages@v2
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v1
       with:
-        folder: dist
-        single-commit: true
+        path: 'dist'
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v1
