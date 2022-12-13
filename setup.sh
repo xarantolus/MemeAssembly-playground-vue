@@ -9,9 +9,9 @@ TMP_DIR=$(mktemp -d)
 
 # Build AX
 cd "$TMP_DIR"
-git clone "https://github.com/xarantolus/ax.git" -b develop
+git clone "https://github.com/xarantolus/ax.git"
 cd "ax"
-make debug
+make
 cp pkg/* "$BASE_DIR/dependencies/ax"
 
 # Build AssemblyScript assembler
