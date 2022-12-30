@@ -7,13 +7,6 @@ rm -rf dependencies && mkdir -p dependencies/{ax,assembly-script,memeassembly}
 
 TMP_DIR=$(mktemp -d)
 
-# Build AX
-cd "$TMP_DIR"
-git clone "https://github.com/xarantolus/ax.git"
-cd "ax"
-make
-cp pkg/* "$BASE_DIR/dependencies/ax"
-
 # Build AssemblyScript assembler
 cd "$TMP_DIR"
 git clone "https://github.com/xarantolus/assembly-script.git"

@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "assembly-script": "file:dependencies/assembly-script",
-    "ax": "file:dependencies/ax",
+    "ax-x86": "^0.1.1",
     "monaco-editor": "^0.34.0",
     "monaco-textmate": "^3.0.1",
     "vue": "^3.2.37",

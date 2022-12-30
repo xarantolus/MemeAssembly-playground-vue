@@ -3,7 +3,7 @@ import Terminal from '../components/Terminal.vue';
 import Editor from '../components/Editor.vue';
 import { defineComponent, Ref, ref } from 'vue';
 import { default as initAssembler, assemble } from "assembly-script";
-import { default as initEmulator, Axecutor, Mnemonic, Register } from 'ax';
+import { default as initEmulator, Axecutor, Mnemonic, Register } from 'ax-x86';
 import { MemeAsmWrapper } from '../memeasm';
 import { Terminal as XTerm } from 'xterm';
 import Grid from '../components/Grid.vue';
