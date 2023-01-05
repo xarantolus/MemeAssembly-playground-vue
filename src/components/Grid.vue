@@ -48,14 +48,14 @@ export default defineComponent({
 
 						console.log(`READ syscall: read byte ${byte} ${String.fromCharCode(byte)}`);
 
-						ax.mem_write_8(rsi, byte);
+						ax.mem_write_8(rsi, BigInt(byte));
 
 						return ax.commit();
 					}
 					case 1n: {
 						// WRITE syscall MUST write to stdout or stderr
 						// Actually this also supports also "writing" to stdin, as this also works in certain circumstances: https://stackoverflow.com/a/7680234
-						if (rdi != BigInt(0) && rdi != BigInt(1) && rdi != BigInt(2)) {
+						if (rdi != 0n && rdi != 1n && rdi != 2n) {
 							throw new Error(`WRITE syscall: cannot write non-std{out,err} (!= 1,2) fds, but tried ${rdi}`);
 						}
 
@@ -67,8 +67,7 @@ export default defineComponent({
 					}
 					case 60n: {
 						// EXIT syscall
-						ax.stop();
-						return ax.unchanged();
+						return ax.stop();
 					}
 					default: {
 						throw new Error('Syscall: unsupported RAX value ' + syscall_num);
@@ -129,17 +128,6 @@ export default defineComponent({
 
 				console.log(ax.toString());
 
-				let initial_rsp = ax.reg_read_64(Register.RSP);
-				ax.hook_after_mnemonic(Mnemonic.Ret, (ax: Axecutor) => {
-					let rsp = ax.reg_read_64(Register.RSP);
-					if (rsp > initial_rsp) {
-						console.log("Reached end of stack")
-						return ax.stop();
-					}
-
-					return ax.unchanged();
-				});
-
 				ax.hook_before_mnemonic(Mnemonic.Syscall, createSyscallHandler(terminalRef.value?.term!));
 
 				await ax.execute();
@@ -173,6 +161,12 @@ export default defineComponent({
 		<Terminal ref="terminalRef" class="grid-terminal" />
 	</div>
 </template>
+
+<style>
+.grid-terminal > .terminal {
+	height: 100%;
+}
+</style>
 
 <style scoped>
 .fullwindow {
