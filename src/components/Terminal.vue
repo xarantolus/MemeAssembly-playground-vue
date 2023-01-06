@@ -98,6 +98,17 @@ export default defineComponent({
 			})
 		}
 
+		term.attachCustomKeyEventHandler((arg) => {
+			if (arg.ctrlKey && arg.code === "KeyC" && arg.type === "keydown") {
+				const selection = term.getSelection();
+				if (selection) {
+					navigator.clipboard.writeText(selection);
+					return false;
+				}
+			}
+			return true;
+		});
+
 		context.expose({
 			term,
 			readByte,
