@@ -6,6 +6,7 @@
 import { defineComponent, onMounted, onUnmounted, ref, Ref, VNodeRef } from 'vue';
 import { Terminal } from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
+import { WebLinksAddon } from 'xterm-addon-web-links';
 import 'xterm/css/xterm.css';
 
 export default defineComponent({
@@ -18,6 +19,7 @@ export default defineComponent({
 		});
 		const fitAddon: FitAddon = new FitAddon();
 		term.loadAddon(fitAddon);
+		term.loadAddon(new WebLinksAddon());
 
 		let resizeHandler = () => {
 			fitAddon.fit();

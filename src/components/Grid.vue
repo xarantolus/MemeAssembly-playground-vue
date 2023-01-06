@@ -3,7 +3,7 @@ import Terminal from '../components/Terminal.vue';
 import Editor from '../components/Editor.vue';
 import { defineComponent, Ref, ref } from 'vue';
 import { default as initAssembler, assemble } from "assembly-script";
-import { default as initEmulator, Axecutor, Mnemonic, Register } from 'ax-x86';
+import { default as initEmulator, Axecutor, Mnemonic, Register, version } from 'ax-x86';
 import { MemeAsmWrapper } from '../memeasm';
 import { Terminal as XTerm } from 'xterm';
 import Grid from '../components/Grid.vue';
@@ -151,6 +151,7 @@ export default defineComponent({
 	mounted() {
 		this.terminalRef?.term.writeln("Welcome to the MemeAssembly Playground \ud83d\udc4b");
 		this.terminalRef?.term.writeln("Select an example program from the dropdown at the bottom or start writing your own program in the editor!");
+		this.terminalRef?.term.writeln(`Programs are emulated in WebAssembly using ax v${version()}, my x86 emulator.\nVisit https://ax.010.one for more info.`)
 	}
 })
 </script>
@@ -163,7 +164,7 @@ export default defineComponent({
 </template>
 
 <style>
-.grid-terminal > .terminal {
+.grid-terminal>.terminal {
 	height: 100%;
 }
 </style>
