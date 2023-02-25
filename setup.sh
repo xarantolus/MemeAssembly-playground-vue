@@ -53,4 +53,10 @@ cp "wasm/memeasm.js" "$BASE_DIR/dependencies/memeassembly/memeasm.js"
 cp "wasm/memeasm.wasm" "$BASE_DIR/dependencies/memeassembly/memeasm.wasm"
 
 cd "$BASE_DIR"
+
+echo "NPM version:"
+npm --version
+echo "Node version:"
+node --version
+
 npm install
