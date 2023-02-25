@@ -36,6 +36,11 @@ jobs:
     - name: Install wasm-pack
       run:  curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
+    - name: Install Node.js 18
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
     - name: Check out repository
       uses: actions/checkout@v3
 
