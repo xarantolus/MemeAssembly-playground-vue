@@ -59,4 +59,8 @@ npm --version
 echo "Node version:"
 node --version
 
-npm install
+if [ -n "${CI:-}" ]; then
+	npm ci
+else
+	npm install
+fi
