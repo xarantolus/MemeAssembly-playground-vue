@@ -123,6 +123,7 @@ export default defineComponent({
 					BigInt(assembled.code_start_address),
 					BigInt(assembled.entrypoint_address),
 				);
+				ax.set_max_instructions(250_000n);
 				ax.mem_init_zero(BigInt(assembled.data_start_address), BigInt(assembled.data_section_size));
 				ax.init_stack(8n * 1024n);
 
@@ -130,9 +131,16 @@ export default defineComponent({
 
 				ax.hook_before_mnemonic(Mnemonic.Syscall, createSyscallHandler(terminalRef.value?.term!));
 
-				await ax.execute();
-
+				try {
+					await ax.execute();
+				}
+				catch (e) {
+					console.log(ax.toString());
+					throw e;
+				}
 				writeln(`Program exited with exit code ${ax.reg_read_64(Register.RAX)}.`);
+
+				console.log(ax.toString());
 			} catch (e) {
 				console.error(e);
 				writeln(`Error: ${e}`);
