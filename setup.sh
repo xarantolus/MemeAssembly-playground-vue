@@ -3,6 +3,8 @@ set -euo pipefail
 
 BASE_DIR="$(pwd)"
 
+curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
 rm -rf dependencies && mkdir -p dependencies/{ax,assembly-script,memeassembly}
 
 TMP_DIR=$(mktemp -d)
@@ -15,29 +17,7 @@ make
 cp pkg/* "$BASE_DIR/dependencies/assembly-script"
 
 
-# Build MemeAssembly with some patches to make it work with emscripten
-
-# -- First install emscripten
-cd "$BASE_DIR"
-if [ -d "build/emsdk" ]; then
-    echo "emsdk already downloaded"
-	cd build/emsdk
-else
-    mkdir -p build
-	cd build
-
-	echo "Installing emsdk for Wasm"
-    git clone https://github.com/emscripten-core/emsdk
-	cd emsdk
-
-	chmod +x ./emsdk
-
-	./emsdk install latest
-	./emsdk activate latest
-fi
-source ./emsdk_env.sh
-
-
+# Build MemeAssembly
 cd "$TMP_DIR"
 git clone "https://github.com/xarantolus/MemeAssembly.git"
 
